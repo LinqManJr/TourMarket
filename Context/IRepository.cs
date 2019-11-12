@@ -10,7 +10,7 @@ namespace TourMarket.Context
         IEnumerable<TEntity> Get();
         IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
         TEntity Create(TEntity entity);
-        TEntity FindById(TEntity entity);
+        TEntity FindById(int id);
         void Remove(TEntity entity);
         void Update(TEntity entity);
     }
