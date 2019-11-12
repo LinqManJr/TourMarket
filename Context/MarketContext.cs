@@ -14,6 +14,36 @@ namespace TourMarket.Context
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+
+            builder.Entity<Order>().HasKey(t => t.Id);
+            builder.Entity<Tourist>().HasKey(t => t.Id);
+
+            builder.Entity<OrderManager>()
+                .HasKey(t => new { t.OrderId, t.ManagerId });
+
+            builder.Entity<OrderManager>()
+                .HasOne(t => t.Manager)
+                .WithMany(m => m.OrderManagers)
+                .HasForeignKey(t => t.ManagerId);
+            builder.Entity<OrderManager>()
+                .HasOne(t => t.Order)
+                .WithMany(m => m.OrderManagers)
+                .HasForeignKey(t => t.OrderId);
+
+            builder.Entity<OrderTourist>()
+                .HasKey(t => new { t.OrderId, t.TouristId});
+            builder.Entity<OrderTourist>()
+                .HasOne(t => t.Order)
+                .WithMany(m => m.OrderTourists)
+                .HasForeignKey(t => t.OrderId);
+            builder.Entity<OrderTourist>()
+                .HasOne(t => t.Tourist)
+                .WithMany(m => m.OrderTourists)
+                .HasForeignKey(t => t.TouristId);
+        }
+
         public DbSet<Order> Orders { get; set; }
         public DbSet<Tour> Tours { get; set; }
         public DbSet<Tourist> Tourists { get; set; }
