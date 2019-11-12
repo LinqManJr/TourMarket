@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TourMarket.Context;
+using TourMarket.Models;
 
 namespace TourMarket
 {
@@ -24,6 +25,9 @@ namespace TourMarket
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<MarketContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketDb")));
+
+
+            services.AddSingleton<IRepository<Tour>, MarketRepository<Tour>>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -56,6 +60,7 @@ namespace TourMarket
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+            
 
             app.UseSpa(spa =>
             {
