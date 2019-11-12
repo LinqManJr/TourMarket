@@ -9,6 +9,11 @@ namespace TourMarket.Context
 {
     public class MarketContext : DbContext
     {
+
+        public MarketContext(DbContextOptions<MarketContext> options) : base(options)
+        {
+        }
+
         public DbSet<Order> Orders { get; set; }
         public DbSet<Tour> Tours { get; set; }
         public DbSet<Tourist> Tourists { get; set; }

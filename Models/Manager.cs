@@ -11,6 +11,6 @@ namespace TourMarket.Models
         public string Name { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }        
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<OrderManager> OrderManagers { get; set; }
     }
 }
