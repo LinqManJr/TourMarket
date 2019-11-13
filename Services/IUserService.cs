@@ -11,7 +11,8 @@ namespace TourMarket.Services
     public interface IUserService
     {
         Manager Authenticate(string login, string password);        
-        Manager Create(Manager manager, string password);       
+        Manager Create(Manager manager, string password);
+        Manager GetById(int id);
     }
 
     public class ManagerService : IUserService
@@ -55,6 +56,8 @@ namespace TourMarket.Services
             context.SaveChanges();
 
             return manager;
-        }       
+        }
+
+        public Manager GetById(int id) => context.Managers.Find(id);
     }
 }

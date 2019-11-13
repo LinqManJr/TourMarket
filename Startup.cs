@@ -37,6 +37,7 @@ namespace TourMarket
 
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -52,8 +53,7 @@ namespace TourMarket
                         var userId = int.Parse(context.Principal.Identity.Name);
                         var user = userService.GetById(userId);
                         if (user == null)
-                        {
-                            // return unauthorized if user no longer exists
+                        {                            
                             context.Fail("Unauthorized");
                         }
                         return Task.CompletedTask;
