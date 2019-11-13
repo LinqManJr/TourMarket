@@ -8,8 +8,8 @@ namespace TourMarket.Context
 {
     public class MarketRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly DbContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly DbContext _context;
+        protected readonly DbSet<TEntity> _dbSet;
 
         public MarketRepository(DbContext context)
         {
