@@ -27,7 +27,8 @@ namespace TourMarket
             services.AddDbContext<MarketContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketDb")));
             services.AddTransient<DbContext, MarketContext>();
            
-            services.AddScoped<MarketRepository<Tour>>();
+            services.AddScoped<MarketRepository<Tour>, MarketOfTours>();
+            services.AddScoped<MarketRepository<Tourist>, TouristsRepository>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
