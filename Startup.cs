@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TourMarket.Context;
 using TourMarket.Models;
+using TourMarket.Services;
 
 namespace TourMarket
 {
@@ -30,6 +31,7 @@ namespace TourMarket
             services.AddScoped<MarketRepository<Tour>, MarketOfTours>();
             services.AddScoped<MarketRepository<Tourist>, TouristsRepository>();
 
+            services.AddScoped<IUserService, ManagerService>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
