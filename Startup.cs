@@ -25,9 +25,9 @@ namespace TourMarket
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<MarketContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketDb")));
-
-
-            services.AddSingleton<IRepository<Tour>, MarketRepository<Tour>>();
+            services.AddTransient<DbContext, MarketContext>();
+           
+            services.AddScoped<MarketRepository<Tour>>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -59,6 +59,10 @@ namespace TourMarket
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "DefaultAPI",
+                    template:"api/{controller}/{action}/{id?}");
             });
             
 

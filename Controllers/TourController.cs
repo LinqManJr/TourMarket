@@ -9,9 +9,8 @@ using TourMarket.Models;
 
 namespace TourMarket.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TourController : ControllerBase
+    [Route("api/[controller]")]    
+    public class TourController : Controller
     {
         private readonly MarketRepository<Tour> repository;
 
@@ -20,21 +19,46 @@ namespace TourMarket.Controllers
             this.repository = repository;
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public IEnumerable<Tour> Get()
-        {
+        {            
             return repository.Get();
         }
 
-        [HttpPost]
+        [HttpGet("[action]/id")]
+        public Tour GetById(int id)
+        {
+            return repository.FindById(id);
+        }
 
-        public IActionResult Create(Tour tour)
+        [HttpPost("[action]")]
+        public IActionResult Create([FromBody]Tour tour)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var returnTour = repository.Create(tour);
             return Ok(returnTour);
+        }
+
+        [HttpPut("[action]")]
+        public IActionResult Update([FromBody] Tour tour)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            //TODO: check if tour exist (need to repository of tour, where we check existance)
+            repository.Update(tour);
+            return Ok();
+        }
+
+        [HttpDelete("[action]")]
+        public IActionResult Remove(Tour tour)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            repository.Remove(tour);
+            return Ok();
         }
     }
 }
