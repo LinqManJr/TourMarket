@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using TourMarket.Dto;
 using TourMarket.Helpers;
-using TourMarket.Models;
 using TourMarket.Services;
 
 namespace TourMarket.Controllers
@@ -21,10 +16,12 @@ namespace TourMarket.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService userService;
+        private readonly AppSettings _appSettings;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService,AppSettings appSettings)
         {
             this.userService = userService;
+            this._appSettings = appSettings;
         }
 
         [AllowAnonymous]
