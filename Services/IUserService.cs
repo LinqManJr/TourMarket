@@ -11,9 +11,7 @@ namespace TourMarket.Services
     public interface IUserService
     {
         Manager Authenticate(string login, string password);        
-        Manager Create(Manager manager, string password);
-        void Update(Manager manager, string password = null);
-        void Delete(int id);
+        Manager Create(Manager manager, string password);       
     }
 
     public class ManagerService : IUserService
@@ -57,16 +55,6 @@ namespace TourMarket.Services
             context.SaveChanges();
 
             return manager;
-        }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Manager manager, string password = null)
-        {
-            throw new NotImplementedException();
-        }
+        }       
     }
 }
