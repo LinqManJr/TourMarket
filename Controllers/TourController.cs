@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using TourMarket.Context;
 using TourMarket.Models;
@@ -12,9 +8,9 @@ namespace TourMarket.Controllers
     [Route("api/[controller]")]    
     public class TourController : Controller
     {
-        private readonly MarketRepository<Tour> repository;
+        private readonly MarketOfTours repository;
 
-        public TourController(MarketRepository<Tour> repository)
+        public TourController(MarketOfTours repository)
         {
             this.repository = repository;
         }
@@ -46,7 +42,10 @@ namespace TourMarket.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            //TODO: check if tour exist (need to repository of tour, where we check existance)
+
+            if (!repository.IfExist(tour))
+                return BadRequest("Tour not exist");
+
             repository.Update(tour);
             return Ok();
         }
