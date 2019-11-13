@@ -16,7 +16,7 @@ namespace TourMarket.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Login = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true)
+                    Password = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,7 +44,7 @@ namespace TourMarket.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false)
                 },
                 constraints: table =>

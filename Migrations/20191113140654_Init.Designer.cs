@@ -10,8 +10,8 @@ using TourMarket.Context;
 namespace TourMarket.Migrations
 {
     [DbContext(typeof(MarketContext))]
-    [Migration("20191113030106_Init2")]
-    partial class Init2
+    [Migration("20191113140654_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,7 +31,7 @@ namespace TourMarket.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Password");
+                    b.Property<byte[]>("Password");
 
                     b.HasKey("Id");
 

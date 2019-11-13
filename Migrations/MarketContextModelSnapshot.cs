@@ -29,7 +29,7 @@ namespace TourMarket.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Password");
+                    b.Property<byte[]>("Password");
 
                     b.HasKey("Id");
 

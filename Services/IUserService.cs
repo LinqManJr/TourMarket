@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TourMarket.Context;
+using TourMarket.Helpers;
 using TourMarket.Models;
 
 namespace TourMarket.Services
@@ -29,22 +30,33 @@ namespace TourMarket.Services
                 return null;
 
             var manager = context.Managers.SingleOrDefault(x => x.Login == login);
-
-            // check if username exists
+            
             if (manager == null)
                 return null;
-
-            // check if password is correct
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+           
+            if (SecurityHelper.VerifyPasswordHash(password, manager.Password))
                 return null;
-
-            // authentication successful
+            
             return manager;
         }
 
         public Manager Create(Manager manager, string password)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(password))
+                throw new ArgumentException("Password is required");
+
+            if (context.Managers.Any(x => x.Login == manager.Login))
+                throw new Exception($"Username {manager.Login} is already taken");
+
+            byte[] passwordHash;
+            SecurityHelper.CreatePasswordHash(password, out passwordHash);
+
+            manager.Password = passwordHash;            
+
+            context.Managers.Add(manager);
+            context.SaveChanges();
+
+            return manager;
         }
 
         public void Delete(int id)
@@ -52,7 +64,7 @@ namespace TourMarket.Services
             throw new NotImplementedException();
         }
 
-        public void Update(Manager user, string password = null)
+        public void Update(Manager manager, string password = null)
         {
             throw new NotImplementedException();
         }
