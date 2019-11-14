@@ -31,7 +31,7 @@ namespace TourMarket.Services
             if (manager == null)
                 return null;
            
-            if (SecurityHelper.VerifyPasswordHash(password, manager.Password))
+            if (!SecurityHelper.VerifyPasswordHash(password, manager.Password))
                 return null;
             
             return manager;

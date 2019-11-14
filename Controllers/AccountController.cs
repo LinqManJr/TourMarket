@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using TourMarket.Dto;
 using TourMarket.Helpers;
@@ -15,20 +16,20 @@ namespace TourMarket.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly IUserService userService;
+        private readonly IUserService _userService;
         private readonly AppSettings _appSettings;
 
-        public AccountController(IUserService userService,AppSettings appSettings)
+        public AccountController(IUserService userService,IOptions<AppSettings> appSettings)
         {
-            this.userService = userService;
-            this._appSettings = appSettings;
+            _userService = userService;
+            _appSettings = appSettings.Value;
         }
 
         [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Login([FromBody]ManagerDto managerDto)
         {
-            var manager = userService.Authenticate(managerDto.Login, managerDto.Password);
+            var manager = _userService.Authenticate(managerDto.Login, managerDto.Password);
 
             if (manager == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -64,7 +65,7 @@ namespace TourMarket.Controllers
 
             try
             {                
-                userService.Create(user, managerDto.Password);
+                _userService.Create(user, managerDto.Password);
                 return Ok();
             }
             catch (Exception ex)

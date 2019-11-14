@@ -25,7 +25,7 @@ namespace TourMarket.Controllers
             return repository.Get();
         }
 
-        [HttpGet("[action]/[id]")]
+        [HttpGet("[action]/id")]
         public Tourist GetById(int id)
         {
             return repository.FindById(id);

@@ -30,6 +30,7 @@ namespace TourMarket
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
+            //services.AddSingleton<AppSettings>();
 
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
@@ -78,7 +79,11 @@ namespace TourMarket
                     name: "DefaultAPI",
                     template:"api/{controller}/{action}/{id?}");
             });
-            
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseSpa(spa =>
             {
