@@ -10,14 +10,14 @@ import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 
 import { Manager } from '../_models';
-import { UserService } from '../_services';
+import { ManagerService } from '../_services/Manager.service';
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent implements OnInit {
   currentManager: Manager;
   managers: Manager[] = [];
 
-  constructor(private userService: UserService) {
+  constructor(private managerService: ManagerService) {
     this.currentManager = JSON.parse(localStorage.getItem('currentManager'));
   }
 
@@ -26,13 +26,13 @@ export class HomeComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    this.ManagerService.delete(id).pipe(first()).subscribe(() => {
+    this.managerService.delete(id).pipe(first()).subscribe(() => {
       this.loadAllManagers()
     });
   }
 
-  private loadAllUsers() {
-    this.userService.getAll().pipe(first()).subscribe(managers => {
+  private loadAllManagers() {
+    this.managerService.getAll().pipe(first()).subscribe(managers => {
       this.managers = managers;
     });
   }
