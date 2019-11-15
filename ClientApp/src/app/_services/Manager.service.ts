@@ -17,7 +17,7 @@ export class ManagerService {
     }
 
     register(manager: Manager) {
-        return this.http.post(`${environment.apiUrl}/managers/register`, user);
+        return this.http.post(`${environment.apiUrl}/managers/register`, manager);
     }
 
     update(manager: Manager) {
