@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
 export class AuthenticationService {
     constructor(private http: HttpClient) { }
 
-    login(name: string, password: string) {
-        return this.http.post<any>(`${environment.apiUrl}/managers/authenticate`, { name: name, password: password })
+    login(login: string, password: string) {
+        return this.http.post<any>(`${environment.apiUrl}/api/account/login`, { login: login, password: password })
             .pipe(map(manager => {
                 // login successful if there's a jwt token in the response
                 if (manager && manager.token) {

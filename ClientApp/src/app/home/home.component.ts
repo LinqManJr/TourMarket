@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 
 import { Manager } from '../_models';
-import { ManagerService } from '../_services/Manager.service';
+import { ManagerService } from '../_services/manager.service';
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent implements OnInit {

@@ -39,8 +39,8 @@ namespace TourMarket.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, manager.Login.ToString())
+                {                    
+                    new Claim(ClaimTypes.NameIdentifier, manager.Id.ToString())                    
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TourMarket.Dto;
 using TourMarket.Models;
@@ -27,10 +28,14 @@ namespace TourMarket.Helpers
                 x.Events = new JwtBearerEvents
                 {
                     OnTokenValidated = context =>
-                    {
-                        var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                        var userId = int.Parse(context.Principal.Identity.Name);
-                        var user = userService.GetById(userId);
+                    {                        
+                        var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();                                             
+                        
+                        var manager = context.Principal.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
+                        if (manager == null)
+                            context.Fail("Unauthorized");
+
+                        var user = userService.GetById(int.Parse(manager.Value));
                         if (user == null)
                         {
                             context.Fail("Unauthorized");
