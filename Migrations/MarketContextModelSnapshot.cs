@@ -92,6 +92,32 @@ namespace TourMarket.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tours");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "India",
+                            Price = 250.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Thailand",
+                            Price = 300.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Japan",
+                            Price = 425.0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "China",
+                            Price = 350.0
+                        });
                 });
 
             modelBuilder.Entity("TourMarket.Models.Tourist", b =>
@@ -109,6 +135,36 @@ namespace TourMarket.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tourists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "jWick23@gmail.com",
+                            Fio = "John Wick",
+                            PhoneNumber = "655587442"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "imbatman@gmail.com",
+                            Fio = "Bruce Wayne",
+                            PhoneNumber = "888888888"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "spyda@yahoo.com",
+                            Fio = "Peter Parker",
+                            PhoneNumber = "615451442"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "ironman@gmail.com",
+                            Fio = "Thony Start",
+                            PhoneNumber = "633331442"
+                        });
                 });
 
             modelBuilder.Entity("TourMarket.Models.Order", b =>

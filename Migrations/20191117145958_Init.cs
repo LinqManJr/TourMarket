@@ -121,6 +121,28 @@ namespace TourMarket.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Tourists",
+                columns: new[] { "Id", "Email", "Fio", "PhoneNumber" },
+                values: new object[,]
+                {
+                    { 1, "jWick23@gmail.com", "John Wick", "655587442" },
+                    { 2, "imbatman@gmail.com", "Bruce Wayne", "888888888" },
+                    { 3, "spyda@yahoo.com", "Peter Parker", "615451442" },
+                    { 4, "ironman@gmail.com", "Thony Start", "633331442" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tours",
+                columns: new[] { "Id", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, "India", 250.0 },
+                    { 2, "Thailand", 300.0 },
+                    { 3, "Japan", 425.0 },
+                    { 4, "China", 350.0 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_TourId",
                 table: "Orders",

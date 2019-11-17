@@ -38,6 +38,19 @@ namespace TourMarket.Context
                 .HasOne(t => t.Tourist)
                 .WithMany(m => m.OrderTourists)
                 .HasForeignKey(t => t.TouristId);
+
+            //seeding somedata
+            builder.Entity<Tour>().HasData(
+                new Tour { Id = 1, Name = "India", Price = 250 },
+                new Tour { Id = 2, Name = "Thailand", Price = 300},
+                new Tour { Id = 3, Name = "Japan", Price = 425},
+                new Tour { Id = 4, Name = "China", Price = 350 });
+
+            builder.Entity<Tourist>().HasData(
+                new Tourist { Id = 1, Fio = "John Wick", Email = "jWick23@gmail.com", PhoneNumber = "655587442"},
+                new Tourist { Id = 2, Fio = "Bruce Wayne", Email = "imbatman@gmail.com", PhoneNumber = "888888888" },
+                new Tourist { Id = 3, Fio = "Peter Parker", Email = "spyda@yahoo.com", PhoneNumber = "615451442" },
+                new Tourist { Id = 4, Fio = "Thony Start", Email = "ironman@gmail.com", PhoneNumber = "633331442" });
         }
 
         public DbSet<Order> Orders { get; set; }
