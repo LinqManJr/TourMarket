@@ -57,5 +57,8 @@ namespace TourMarket.Context
         public DbSet<Tour> Tours { get; set; }
         public DbSet<Tourist> Tourists { get; set; }
         public DbSet<Manager> Managers { get; set; }
+
+        public DbSet<OrderManager> OrderManagers { get; set; }
+        public DbSet<OrderTourist> OrderTourist { get; set; }
     }
 }
