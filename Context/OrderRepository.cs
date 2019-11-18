@@ -18,6 +18,13 @@ namespace TourMarket.Context
 
         public IEnumerable<Order> GetOrderByManagerId(int id)
         {
+            var result = context.Orders.Include(x => x.OrderManagers).ThenInclude(x => x.Manager);
+            //another one
+            var result2 = context.Orders.Select(x => new
+            {
+                Order = x,
+                Managers = x.OrderManagers.Where(m => m.ManagerId == id).ToList()
+            }).ToList();
             throw new NotImplementedException();
         }
     }

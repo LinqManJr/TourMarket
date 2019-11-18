@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using TourMarket.Models;
 
 namespace TourMarket.Context
@@ -51,6 +52,27 @@ namespace TourMarket.Context
                 new Tourist { Id = 2, Fio = "Bruce Wayne", Email = "imbatman@gmail.com", PhoneNumber = "888888888" },
                 new Tourist { Id = 3, Fio = "Peter Parker", Email = "spyda@yahoo.com", PhoneNumber = "615451442" },
                 new Tourist { Id = 4, Fio = "Thony Start", Email = "ironman@gmail.com", PhoneNumber = "633331442" });
+
+            builder.Entity<Order>().HasData(
+                new Order { Id = 1, Date = DateTime.Now, TourId = 1 },
+                new Order { Id = 2, Date = DateTime.Now.AddDays(-1), TourId = 2 },
+                new Order { Id = 3, Date = DateTime.Now.AddDays(-2), TourId = 3 },
+                new Order { Id = 4, Date = DateTime.Now.AddDays(-3), TourId = 4 }
+                );
+
+            builder.Entity<OrderManager>().HasData(
+                new OrderManager { OrderId = 1, ManagerId = 1},
+                new OrderManager { OrderId = 2, ManagerId = 1},
+                new OrderManager { OrderId = 3, ManagerId = 1},
+                new OrderManager { OrderId = 4, ManagerId = 1}
+                );
+
+            builder.Entity<OrderTourist>().HasData(
+                new OrderTourist { OrderId = 1, TouristId = 1},
+                new OrderTourist { OrderId = 2, TouristId = 2 },
+                new OrderTourist { OrderId = 3, TouristId = 3 },
+                new OrderTourist { OrderId = 4, TouristId = 4 }
+                );
         }
 
         public DbSet<Order> Orders { get; set; }

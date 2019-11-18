@@ -44,13 +44,39 @@ namespace TourMarket.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int?>("TourId");
+                    b.Property<int>("TourId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TourId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2019, 11, 18, 22, 4, 56, 536, DateTimeKind.Local).AddTicks(3214),
+                            TourId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2019, 11, 17, 22, 4, 56, 536, DateTimeKind.Local).AddTicks(7020),
+                            TourId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2019, 11, 16, 22, 4, 56, 536, DateTimeKind.Local).AddTicks(7049),
+                            TourId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2019, 11, 15, 22, 4, 56, 536, DateTimeKind.Local).AddTicks(7053),
+                            TourId = 4
+                        });
                 });
 
             modelBuilder.Entity("TourMarket.Models.OrderManager", b =>
@@ -63,7 +89,29 @@ namespace TourMarket.Migrations
 
                     b.HasAlternateKey("ManagerId", "OrderId");
 
-                    b.ToTable("OrderManager");
+                    b.ToTable("OrderManagers");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1,
+                            ManagerId = 1
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            ManagerId = 1
+                        },
+                        new
+                        {
+                            OrderId = 3,
+                            ManagerId = 1
+                        },
+                        new
+                        {
+                            OrderId = 4,
+                            ManagerId = 1
+                        });
                 });
 
             modelBuilder.Entity("TourMarket.Models.OrderTourist", b =>
@@ -77,6 +125,28 @@ namespace TourMarket.Migrations
                     b.HasIndex("TouristId");
 
                     b.ToTable("OrderTourist");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1,
+                            TouristId = 1
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            TouristId = 2
+                        },
+                        new
+                        {
+                            OrderId = 3,
+                            TouristId = 3
+                        },
+                        new
+                        {
+                            OrderId = 4,
+                            TouristId = 4
+                        });
                 });
 
             modelBuilder.Entity("TourMarket.Models.Tour", b =>
@@ -171,7 +241,8 @@ namespace TourMarket.Migrations
                 {
                     b.HasOne("TourMarket.Models.Tour", "Tour")
                         .WithMany("Orders")
-                        .HasForeignKey("TourId");
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("TourMarket.Models.OrderManager", b =>
