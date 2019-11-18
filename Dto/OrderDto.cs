@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TourMarket.Models;
 
 namespace TourMarket.Dto
 {
@@ -9,9 +10,8 @@ namespace TourMarket.Dto
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public string TourName { get; set; }
-        public double TourPrice { get; set; }
-        public string ManagerName { get; set; }
-        public string TouristName { get; set; }
+        public Tour Tour { get; set; }
+        public Manager Manager { get; set; }
+        public Tourist Tourist { get; set; }
     }
 }

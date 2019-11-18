@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TourMarket.Dto;
@@ -14,6 +15,16 @@ namespace TourMarket.Helpers
         public static Manager ToManager(this ManagerDto managerDto)
         {
             return new Manager { Id = managerDto.Id, Login = managerDto.Login, Name = managerDto.Name };
+        }
+
+        public static Order ToOrder(this OrderDto orderDto)
+        {
+            return new Order { Id = orderDto.Id, 
+                                Date = orderDto.Date, 
+                                Tour = orderDto.Tour, 
+                                OrderManagers = new List<OrderManager> { new OrderManager { OrderId = orderDto.Id, Manager = orderDto.Manager } },
+                                OrderTourists = new List<OrderTourist> { new OrderTourist { OrderId = orderDto.Id, Tourist = orderDto.Tourist} }
+            };
         }
 
         public static void AddMyAuthentication(this IServiceCollection services, byte[] key)

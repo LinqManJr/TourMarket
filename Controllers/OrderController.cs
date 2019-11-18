@@ -25,7 +25,16 @@ namespace TourMarket.Controllers
         [HttpGet("[action]")]        
         public IActionResult GetOrders(int id = 1)
         {
+            //TODO: add authorization
             return Ok(_repository.GetOrdersByManagerId(id));
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult AddOrder([FromBody]OrderDto order)
+        {
+            //TODO: add manager id to Order 
+            _repository.AddOrder(order);
+            return Ok();
         }
     }
 }

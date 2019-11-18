@@ -25,12 +25,17 @@ namespace TourMarket.Context
             {
                 Id = x.Id,
                 Date = x.Date,
-                TourName = x.Tour.Name,
-                TourPrice = x.Tour.Price,
-                ManagerName = x.OrderManagers.Where(m => m.ManagerId == id).Select(y => y.Manager.Name).First(),                
-                TouristName = x.OrderTourists.Where(o => o.OrderId == x.Id).Select(o => o.Tourist.Fio).First()
+                Tour = x.Tour,                
+                Manager = x.OrderManagers.Where(m => m.ManagerId == id).Select(y => y.Manager).First(),                
+                Tourist = x.OrderTourists.Where(o => o.OrderId == x.Id).Select(o => o.Tourist).First()
             }).ToList();
             return result2;
+        }
+
+        internal void AddOrder(OrderDto orderDto)
+        {
+            context.Orders.Add(new Order { });
+            throw new NotImplementedException();
         }
     }
 }
