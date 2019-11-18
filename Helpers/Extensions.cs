@@ -52,6 +52,11 @@ namespace TourMarket.Helpers
                             context.Fail("Unauthorized");
                         }
                         return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        context.Fail("Unauthorized");
+                        return Task.CompletedTask;
                     }
                 };
                 x.RequireHttpsMetadata = false;

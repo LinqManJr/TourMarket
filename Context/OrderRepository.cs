@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TourMarket.Dto;
+using TourMarket.Helpers;
 using TourMarket.Models;
 
 namespace TourMarket.Context
@@ -32,10 +33,20 @@ namespace TourMarket.Context
             return result2;
         }
 
-        internal void AddOrder(OrderDto orderDto)
+        public void AddOrder(OrderDto orderDto)
         {
-            context.Orders.Add(new Order { });
-            throw new NotImplementedException();
+            var order = new Order { Date = orderDto.Date};
+            context.Orders.Add(order);
+
+            if (orderDto.Tourist.Id == 0)
+                context.Tourists.Add(orderDto.Tourist);
+            if (orderDto.Tour.Id == 0)
+                context.Tours.Add(orderDto.Tour);
+
+            order.TourId = orderDto.Tour.Id;
+            order.OrderManagers.Add(new OrderManager { OrderId = order.Id, ManagerId = orderDto.Manager.Id });
+            order.OrderTourists.Add(new OrderTourist { OrderId = order.Id, TouristId = orderDto.Tourist.Id});
+            context.SaveChanges();
         }
     }
 }

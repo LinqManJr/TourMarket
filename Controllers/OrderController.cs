@@ -32,6 +32,8 @@ namespace TourMarket.Controllers
         [HttpPost("[action]")]
         public IActionResult AddOrder([FromBody]OrderDto order)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             //TODO: add manager id to Order 
             _repository.AddOrder(order);
             return Ok();
