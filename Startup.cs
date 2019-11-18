@@ -43,6 +43,7 @@ namespace TourMarket
             services.AddScoped<MarketRepository<Tourist>, TouristsRepository>();
 
             services.AddScoped<IUserService, ManagerService>();
+            services.AddScoped<OrderRepository>(); //TODO: include Interface
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -68,7 +69,7 @@ namespace TourMarket
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseAuthentication();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
