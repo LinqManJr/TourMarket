@@ -16,28 +16,8 @@ namespace TourMarket.Helpers
         public static Manager ToManager(this ManagerDto managerDto)
         {
             return new Manager { Id = managerDto.Id, Login = managerDto.Login, Name = managerDto.Name };
-        }
-
-        public static Order ToOrder(this OrderDto orderDto)
-        {
-            return new Order { Id = orderDto.Id, 
-                                Date = orderDto.Date, 
-                                Tour = orderDto.Tour, 
-                                OrderManagers = new List<OrderManager> { new OrderManager { OrderId = orderDto.Id, Manager = orderDto.Manager } },
-                                OrderTourists = new List<OrderTourist> { new OrderTourist { OrderId = orderDto.Id, Tourist = orderDto.Tourist} }
-            };
-        }
-        public static IList<OrderDto> ToOrderDtoList(this IQueryable<Order> orders, int managerId)
-        {
-            return orders.Select(x => new OrderDto
-            {
-                Id = x.Id,
-                Date = x.Date,
-                Tour = x.Tour,
-                Manager = x.OrderManagers.Where(m => m.ManagerId == managerId).Select(y => y.Manager).First(),
-                Tourist = x.OrderTourists.Where(o => o.OrderId == x.Id).Select(o => o.Tourist).First()
-            }).ToList();
-        }
+        }        
+        
         public static void AddMyAuthentication(this IServiceCollection services, byte[] key)
         {
             services.AddAuthentication(x =>
