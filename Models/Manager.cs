@@ -8,6 +8,6 @@ namespace TourMarket.Models
         public string Name { get; set; }
         public string Login { get; set; }
         public byte[] Password { get; set; }        
-        public virtual ICollection<OrderManager> OrderManagers { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
