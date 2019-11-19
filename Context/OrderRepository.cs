@@ -50,12 +50,14 @@ namespace TourMarket.Context
 
                     if (orderDto.Tourist.Id == 0)
                         context.Tourists.Add(orderDto.Tourist);
+                    order.TouristId = orderDto.Tourist.Id;
+
                     if (orderDto.Tour.Id == 0)
                         context.Tours.Add(orderDto.Tour);
-
                     order.TourId = orderDto.Tour.Id;
-                    order.OrderManagers.Add(new OrderManager { OrderId = order.Id, ManagerId = orderDto.Manager.Id });
-                    order.OrderTourists.Add(new OrderTourist { OrderId = order.Id, TouristId = orderDto.Tourist.Id });
+
+                    order.ManagerId = orderDto.Manager.Id;
+                                        
                     context.SaveChanges();
                     transaction.Commit();
                 }
