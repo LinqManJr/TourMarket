@@ -10,7 +10,7 @@ namespace TourMarket.Models
         public int Id { get; set; }
         public string Fio { get; set; }
         public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-        public virtual ICollection<OrderTourist> OrderTourists{get;set;}
+        public string Email { get; set; }        
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -11,7 +11,8 @@ namespace TourMarket.Models
         public DateTime Date { get; set; }
         public int TourId { get; set; }
         public virtual Tour Tour { get;set; }
-        public virtual ICollection<OrderManager> OrderManagers { get; set; } = new List<OrderManager>();
-        public virtual ICollection<OrderTourist> OrderTourists{ get; set; } = new List<OrderTourist>();
+        public virtual ICollection<OrderManager> OrderManagers { get; set; } = new List<OrderManager>();        
+        public int TouristId { get; set; }
+        public virtual Tourist Tourist { get; set; }
     }
 }

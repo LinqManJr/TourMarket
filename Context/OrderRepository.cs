@@ -19,10 +19,10 @@ namespace TourMarket.Context
         }
 
         public IEnumerable<OrderDto> GetOrdersByManagerId(int id)
-        {   
+        {
             //var result = context.Orders.Include(x => x.OrderManagers).ThenInclude(x => x.Manager);
-            
-            var result2 = context.Orders.Select(x => new OrderDto
+
+            /*var result2 = context.Orders.Select(x => new OrderDto
             {
                 Id = x.Id,
                 Date = x.Date,
@@ -30,8 +30,10 @@ namespace TourMarket.Context
                 Manager = x.OrderManagers.Where(m => m.ManagerId == id).Select(y => y.Manager).First(),                
                 Tourist = x.OrderTourists.Where(o => o.OrderId == x.Id).Select(o => o.Tourist).First()
             }).ToList();
-            return result2;
+            return result2;*/
+            throw new NotImplementedException();
         }
+
         public IQueryable<Order> GetOrders(int id)
         {        
             return context.Orders;
