@@ -19,9 +19,9 @@ namespace TourMarket.Controllers
         [HttpGet("[action]")]        
         public IActionResult GetOrders(int id = 1)
         {
-            var orders = _repository.GetOrders(id);
+            var orders = _repository.GetOrdersByManagerId(id);
             
-            //TODO: fix
+            //orders to ordersdto
             return Ok(orders);
         }
 
