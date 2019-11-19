@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TourMarket.Context;
 using TourMarket.Dto;
+using TourMarket.Helpers;
 
 namespace TourMarket.Controllers
 {
@@ -25,8 +26,10 @@ namespace TourMarket.Controllers
         [HttpGet("[action]")]        
         public IActionResult GetOrders(int id = 1)
         {
-            //TODO: add authorization
-            return Ok(_repository.GetOrdersByManagerId(id));
+            var orders = _repository.GetOrders(id);
+            var ordersDto = orders.ToOrderDtoList(id);
+            
+            return Ok(ordersDto);
         }
 
         [HttpPost("[action]")]
@@ -37,6 +40,12 @@ namespace TourMarket.Controllers
             //TODO: add manager id to Order 
             _repository.AddOrder(order);
             return Ok();
+        }
+
+        [HttpDelete("[action]")]
+        public IActionResult Delete([FromBody]OrderController dto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

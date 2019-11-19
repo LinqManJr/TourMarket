@@ -32,20 +32,42 @@ namespace TourMarket.Context
             }).ToList();
             return result2;
         }
+        public IQueryable<Order> GetOrders(int id)
+        {        
+            return context.Orders;
+        }
 
         public void AddOrder(OrderDto orderDto)
         {
-            var order = new Order { Date = orderDto.Date};
-            context.Orders.Add(order);
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try 
+                { 
+                    var order = new Order { Date = orderDto.Date };
+                    context.Orders.Add(order);
 
-            if (orderDto.Tourist.Id == 0)
-                context.Tourists.Add(orderDto.Tourist);
-            if (orderDto.Tour.Id == 0)
-                context.Tours.Add(orderDto.Tour);
+                    if (orderDto.Tourist.Id == 0)
+                        context.Tourists.Add(orderDto.Tourist);
+                    if (orderDto.Tour.Id == 0)
+                        context.Tours.Add(orderDto.Tour);
 
-            order.TourId = orderDto.Tour.Id;
-            order.OrderManagers.Add(new OrderManager { OrderId = order.Id, ManagerId = orderDto.Manager.Id });
-            order.OrderTourists.Add(new OrderTourist { OrderId = order.Id, TouristId = orderDto.Tourist.Id});
+                    order.TourId = orderDto.Tour.Id;
+                    order.OrderManagers.Add(new OrderManager { OrderId = order.Id, ManagerId = orderDto.Manager.Id });
+                    order.OrderTourists.Add(new OrderTourist { OrderId = order.Id, TouristId = orderDto.Tourist.Id });
+                    context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch(Exception)
+                {
+                    transaction.Rollback();
+                }
+            }               
+            
+        }
+
+        public void DeleteOrder(Order order)
+        {
+            context.Orders.Remove(order);
             context.SaveChanges();
         }
     }

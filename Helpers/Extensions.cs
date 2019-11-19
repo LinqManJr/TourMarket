@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TourMarket.Dto;
@@ -26,7 +27,17 @@ namespace TourMarket.Helpers
                                 OrderTourists = new List<OrderTourist> { new OrderTourist { OrderId = orderDto.Id, Tourist = orderDto.Tourist} }
             };
         }
-
+        public static IList<OrderDto> ToOrderDtoList(this IQueryable<Order> orders, int managerId)
+        {
+            return orders.Select(x => new OrderDto
+            {
+                Id = x.Id,
+                Date = x.Date,
+                Tour = x.Tour,
+                Manager = x.OrderManagers.Where(m => m.ManagerId == managerId).Select(y => y.Manager).First(),
+                Tourist = x.OrderTourists.Where(o => o.OrderId == x.Id).Select(o => o.Tourist).First()
+            }).ToList();
+        }
         public static void AddMyAuthentication(this IServiceCollection services, byte[] key)
         {
             services.AddAuthentication(x =>
