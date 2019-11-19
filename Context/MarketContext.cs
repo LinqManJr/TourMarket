@@ -15,8 +15,7 @@ namespace TourMarket.Context
         {
 
             builder.Entity<Order>().HasKey(t => t.Id);
-            builder.Entity<Tourist>().HasKey(t => t.Id);   
-                                 
+            builder.Entity<Tourist>().HasKey(t => t.Id);                                    
 
             //seeding somedata
             builder.Entity<Tour>().HasData(
@@ -31,12 +30,12 @@ namespace TourMarket.Context
                 new Tourist { Id = 3, Fio = "Peter Parker", Email = "spyda@yahoo.com", PhoneNumber = "615451442" },
                 new Tourist { Id = 4, Fio = "Thony Start", Email = "ironman@gmail.com", PhoneNumber = "633331442" });
 
-            builder.Entity<Order>().HasData(
-                new Order { Id = 1, Date = DateTime.Now, TourId = 1 },
-                new Order { Id = 2, Date = DateTime.Now.AddDays(-1), TourId = 2 },
-                new Order { Id = 3, Date = DateTime.Now.AddDays(-2), TourId = 3 },
-                new Order { Id = 4, Date = DateTime.Now.AddDays(-3), TourId = 4 }
-                );            
+           /* builder.Entity<Order>().HasData(
+                new Order { Id = 1, Date = DateTime.Now, TourId = 1, TouristId = 1},
+                new Order { Id = 2, Date = DateTime.Now.AddDays(-1), TourId = 2, TouristId = 2 },
+                new Order { Id = 3, Date = DateTime.Now.AddDays(-2), TourId = 3, TouristId = 3 },
+                new Order { Id = 4, Date = DateTime.Now.AddDays(-3), TourId = 4, TouristId = 4 }
+                );      */      
         }
 
         public DbSet<Order> Orders { get; set; }
