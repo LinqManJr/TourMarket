@@ -22,9 +22,13 @@ namespace TourMarket.Controllers
         }
 
         [HttpGet("[action]/id")]
-        public Tour GetById(int id)
+        public ActionResult<Tour> GetById(int id)
         {
-            return repository.FindById(id);
+            var tour = repository.FindById(id);
+            if (tour == null)
+                return NotFound();
+
+            return Ok(tour);
         }
 
         [HttpPost("[action]")]
