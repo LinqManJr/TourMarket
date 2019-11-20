@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TourMarket.Context;
 using TourMarket.Dto;
+using TourMarket.Models;
 
 namespace TourMarket.Controllers
 {
@@ -19,24 +20,29 @@ namespace TourMarket.Controllers
         [HttpGet("[action]")]        
         public IActionResult GetOrders(int id = 1)
         {
-            var orders = _repository.GetOrdersByManagerId(id);
+            var orders = _repository.GetOrdersByManagerId(id);            
             
-            //orders to ordersdto
             return Ok(orders);
         }
 
         [HttpPost("[action]")]
-        public IActionResult AddOrder([FromBody]OrderDto order)
+        public IActionResult AddOrder([FromBody]Order order)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             //TODO: add manager id to Order 
-            _repository.AddOrder(order);
+            _repository.AddOrderTest(order);
             return Ok();
         }
 
         [HttpDelete("[action]")]
-        public IActionResult Delete([FromBody]OrderController dto)
+        public IActionResult Delete([FromBody]Order order)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPut("[action]")]
+        public IActionResult Update([FromBody]Order order)
         {
             throw new NotImplementedException();
         }

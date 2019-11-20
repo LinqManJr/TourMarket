@@ -49,13 +49,25 @@ namespace TourMarket.Context
                 {
                     transaction.Rollback();
                 }
-            }               
+            }              
             
+        }
+
+        public void AddOrderTest(Order order)
+        {
+            context.Orders.Add(order);
+            context.SaveChanges();
         }
 
         public void DeleteOrder(Order order)
         {
             context.Orders.Remove(order);
+            context.SaveChanges();
+        }
+
+        public void Update(Order order)
+        {
+            context.Entry(order).State = EntityState.Modified;
             context.SaveChanges();
         }
     }
