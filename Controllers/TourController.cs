@@ -22,23 +22,23 @@ namespace TourMarket.Controllers
         }
 
         [HttpGet("[action]/id")]
-        public IActionResult GetById(int id)
+        public ActionResult<Tour> GetById(int id)
         {
             var tour = repository.FindById(id);
             if (tour == null)
                 return NotFound();
 
-            return Ok(tour);
+            return tour;
         }
 
         [HttpPost("[action]")]
-        public IActionResult Create([FromBody]Tour tour)
+        public ActionResult<Tour> Create([FromBody]Tour tour)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var returnTour = repository.Create(tour);
-            return Ok(returnTour);
+            return returnTour;
         }
 
         [HttpPut("[action]")]
