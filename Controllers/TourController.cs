@@ -34,15 +34,22 @@ namespace TourMarket.Controllers
         [HttpPost("[action]")]
         public ActionResult<Tour> Create([FromBody]Tour tour)
         {
+            if (tour.Price == null | tour.Price == 0)
+                ModelState.AddModelError("Price", "Price must be positive number");
+
+            if (string.IsNullOrWhiteSpace(tour.Name))
+                ModelState.AddModelError("Name", "Tour name must be non empty string");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var returnTour = repository.Create(tour);
             return returnTour;
+            //return Created("", returnTour);
         }
 
         [HttpPut("[action]")]
-        public IActionResult Update([FromBody] Tour tour)
+        public ActionResult Update([FromBody] Tour tour)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -55,13 +62,13 @@ namespace TourMarket.Controllers
         }
 
         [HttpDelete("[action]")]
-        public IActionResult Remove(Tour tour)
+        public ActionResult Remove(Tour tour)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             repository.Remove(tour);
-            return Ok();
+            return NoContent();
         }
     }
 }
