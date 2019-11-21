@@ -23,7 +23,7 @@ namespace TourMarket.Context
            return context.Orders.Where(x => x.ManagerId == id).Include(x => x.Manager).Include(x => x.Tourist);            
         }        
 
-        public void AddOrder(OrderDto orderDto)
+        /*public void AddOrder(OrderDto orderDto)
         {
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -51,9 +51,9 @@ namespace TourMarket.Context
                 }
             }              
             
-        }
+        }*/
 
-        public void AddOrderTest(Order order)
+        public void AddOrder(Order order)
         {
             context.Orders.Add(order);
             context.SaveChanges();
