@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TourMarket.Context;
 using TourMarket.Dto;
@@ -17,8 +18,8 @@ namespace TourMarket.Controllers
             _repository = repository;
         }
 
-        [HttpGet("[action]")]        
-        public IActionResult GetOrders(int id = 1)
+        [HttpGet("[action]/{id}")]        
+        public ActionResult<IQueryable<Order>> GetOrders(int id = 1)
         {
             var orders = _repository.GetOrdersByManagerId(id);            
             
