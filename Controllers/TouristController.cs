@@ -22,42 +22,52 @@ namespace TourMarket.Controllers
         }
 
         [HttpGet("[action]/id")]
-        public Tourist GetById(int id)
+        public ActionResult<Tourist> GetById(int id)
         {
-            return repository.FindById(id);
+            var tourist = repository.FindById(id);
+            if (tourist == null)
+                return NotFound();
+            
+            return tourist;
         }
 
         [HttpPost("[action]")]
-        public IActionResult Create([FromBody]Tourist tourist)
-        {
+        public ActionResult<Tourist> Create([FromBody]Tourist tourist)
+        {       
+            if (string.IsNullOrWhiteSpace(tourist.Fio))
+                ModelState.AddModelError("Name", "Tour name must be non empty string");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var returnTour = repository.Create(tourist);
-            return Ok(returnTour);
+            var newTourist = repository.Create(tourist);
+            return newTourist;
         }
 
         [HttpPut("[action]")]
-        public IActionResult Update([FromBody] Tourist tourist)
+        public ActionResult<Tourist> Update([FromBody] Tourist tourist)
         {
+            if (string.IsNullOrWhiteSpace(tourist.Fio))
+                ModelState.AddModelError("Name", "Tour name must be non empty string");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             if (!repository.IfExist(tourist))
-                return BadRequest("Tourist not exist");
+                return NotFound("Tourist not exist");
 
             repository.Update(tourist);
-            return Ok();
+            return tourist;
         }
 
         [HttpDelete("[action]")]
-        public IActionResult Remove(Tourist tourist)
+        public ActionResult Remove(Tourist tourist)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!repository.IfExist(tourist))
+                return NotFound();
 
             repository.Remove(tourist);
-            return Ok();
+            return NoContent();
         }
     }
 }
