@@ -49,23 +49,29 @@ namespace TourMarket.Controllers
         }
 
         [HttpPut("[action]")]
-        public ActionResult Update([FromBody] Tour tour)
+        public ActionResult<Tour> Update([FromBody] Tour tour)
         {
+            if (tour.Price == null | tour.Price == 0)
+                ModelState.AddModelError("Price", "Price must be positive number");
+
+            if (string.IsNullOrWhiteSpace(tour.Name))
+                ModelState.AddModelError("Name", "Tour name must be non empty string");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             if (!repository.IfExist(tour))
-                return BadRequest("Tour not exist");
+                return NotFound("Tour not exist");
 
             repository.Update(tour);
-            return Ok();
+            return tour;
         }
 
         [HttpDelete("[action]")]
         public ActionResult Remove(Tour tour)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!repository.IfExist(tour))
+                return NotFound();
 
             repository.Remove(tour);
             return NoContent();
