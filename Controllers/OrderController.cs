@@ -21,8 +21,10 @@ namespace TourMarket.Controllers
         [HttpGet("[action]/{id}")]        
         public ActionResult<IQueryable<Order>> GetOrders(int id = 1)
         {
-            var orders = _repository.GetOrdersByManagerId(id);            
-            
+            var orders = _repository.GetOrdersByManagerId(id).ToList();
+            if (orders.Count == 0)
+                return NotFound();
+
             return Ok(orders);
         }
 
