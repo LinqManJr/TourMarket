@@ -39,15 +39,23 @@ namespace TourMarket.Controllers
         }
 
         [HttpDelete("[action]")]
-        public IActionResult Delete([FromBody]Order order)
+        public ActionResult Remove([FromBody]Order order)
         {
-            throw new NotImplementedException();
+            if (!_repository.IfExist(order))
+                return NotFound();
+
+            _repository.DeleteOrder(order);
+            return NoContent();
         }
 
         [HttpPut("[action]")]
-        public IActionResult Update([FromBody]Order order)
+        public ActionResult<Order> Update([FromBody]Order order)
         {
-            throw new NotImplementedException();
+            if (!_repository.IfExist(order))
+                return NotFound("Order not exist");
+
+            _repository.Update(order);
+            return order;
         }
     }
 }

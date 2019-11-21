@@ -70,5 +70,10 @@ namespace TourMarket.Context
             context.Entry(order).State = EntityState.Modified;
             context.SaveChanges();
         }
+
+        public bool IfExist(Order order)
+        {
+            return context.Orders.Find(order.Id) != null;            
+        }
     }
 }
