@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MailKit;
+using TourMarket.Models;
 
 namespace TourMarket.Services
 {
@@ -13,6 +14,13 @@ namespace TourMarket.Services
 
     public class EmailSender : IEmailSender
     {
+        private readonly EmailConfiguration _configuration;
+
+        public EmailSender(EmailConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public Task SendEmailAsync(string from, string to, string message)
         {
             throw new NotImplementedException();
