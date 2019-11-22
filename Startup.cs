@@ -31,11 +31,14 @@ namespace TourMarket
             services.AddDbContext<MarketContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketDb")));
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
-            //services.AddSingleton<AppSettings>();
+            var mailSettingsSection = Configuration.GetSection("EmailConfiguration");
 
-            var appSettings = appSettingsSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.Configure<AppSettings>(appSettingsSection);
+            services.Configure<EmailConfiguration>(mailSettingsSection);
+            services.AddSingleton(mailSettingsSection.Get<EmailConfiguration>());
+
+            //var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettingsSection.Get<AppSettings>().Secret);
 
             services.AddMyAuthentication(key);
             services.AddAuthorization(options =>
@@ -45,12 +48,14 @@ namespace TourMarket
                 options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
             });
             services.AddTransient<DbContext, MarketContext>();
-           
+            services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddScoped<MarketRepository<Tour>, MarketOfTours>();
             services.AddScoped<MarketRepository<Tourist>, TouristsRepository>();
-
+            
             services.AddScoped<IUserService, ManagerService>();
             services.AddScoped<OrderRepository>(); //TODO: include Interface
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
