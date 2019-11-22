@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MailKit;
-using TourMarket.Models;
+using TourMarket.Helpers;
 
 namespace TourMarket.Services
 {

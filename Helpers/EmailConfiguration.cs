@@ -1,4 +1,4 @@
-﻿namespace TourMarket.Models
+﻿namespace TourMarket.Helpers
 {
     public class EmailConfiguration
     {
