@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MailKit;
+using MailKit.Net.Smtp;
+using MimeKit;
+using MimeKit.Text;
 using TourMarket.Helpers;
 
 namespace TourMarket.Services
@@ -21,9 +24,34 @@ namespace TourMarket.Services
             _configuration = configuration;
         }
 
-        public Task SendEmailAsync(string from, string to, string message)
+        public Task SendEmailAsync(string from, string to, string text)
         {
-            throw new NotImplementedException();
+            return Task.Factory.StartNew(() =>
+            {
+                var message = new MimeMessage();
+                
+                message.To.Add(new MailboxAddress(to));
+                message.From.Add(new MailboxAddress(from));
+                message.Subject = "Notification from tour market";
+
+                message.Body = new TextPart(TextFormat.Html)
+                {
+                    Text = text
+                };
+
+                using (var emailClient = new SmtpClient())
+                {
+                    emailClient.Connect(_configuration.SmtpServer, _configuration.Port, true);
+
+                    emailClient.AuthenticationMechanisms.Remove("XOAUTH2");
+                    
+                    emailClient.Authenticate(_configuration.Username, _configuration.Password);
+
+                    emailClient.Send(message);
+
+                    emailClient.Disconnect(true);
+                }
+            });
         }
     }
 }
