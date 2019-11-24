@@ -23,7 +23,7 @@ namespace TourMarket.Controllers
         {
             var orders = _repository.GetOrdersByManagerId(id).ToList();
             if (orders.Count == 0)
-                return NotFound();
+                return NotFound("You not have orders");
 
             return Ok(orders);
         }

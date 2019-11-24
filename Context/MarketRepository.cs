@@ -49,5 +49,6 @@ namespace TourMarket.Context
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
+        
     }
 }

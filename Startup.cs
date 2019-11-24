@@ -50,8 +50,10 @@ namespace TourMarket
             services.AddTransient<DbContext, MarketContext>();
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddScoped<MarketRepository<Tour>, MarketOfTours>();
-            services.AddScoped<MarketRepository<Tourist>, TouristsRepository>();
+            services.AddScoped<MarketOfTours>();
+            services.AddScoped<TouristsRepository>();
+            //services.AddScoped<MarketRepository<Tour>, MarketOfTours>();
+            //services.AddScoped<MarketRepository<Tourist>, TouristsRepository>();
             
             services.AddScoped<IUserService, ManagerService>();
             services.AddScoped<OrderRepository>(); //TODO: include Interface
