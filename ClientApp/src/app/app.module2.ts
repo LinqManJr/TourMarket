@@ -4,7 +4,10 @@ import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent }  from './app.component';
-import { routing }        from './app.routing';
+import { routing } from './app.routing';
+
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+
 
 import { AlertComponent } from './_directives';
 import { AuthGuard } from './_guards';
@@ -26,7 +29,9 @@ import { RegisterComponent } from './register';
         AlertComponent,
         HomeComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+
+        NavMenuComponent
     ],
     providers: [
         AuthGuard,
@@ -36,9 +41,7 @@ import { RegisterComponent } from './register';
         OrderService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
-
-        // provider used to create fake backend
-        //fakeBackendProvider
+                
     ],
     bootstrap: [AppComponent]
 })
