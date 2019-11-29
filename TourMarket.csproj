@@ -35,24 +35,6 @@
     <Compile Remove="Migrations\20191119141410_Init4.Designer.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="ClientApp\src\app\side-menu\side-menu.component.ts" />
-    <None Remove="ClientApp\src\app\_models\order.ts" />
-    <None Remove="ClientApp\src\app\_models\tour.ts" />
-    <None Remove="ClientApp\src\app\_models\tourist.ts" />
-    <None Remove="ClientApp\src\app\_services\order.service.ts" />
-    <None Remove="ClientApp\src\app\_services\tour.service.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\side-menu\side-menu.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\_models\order.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\_models\tour.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\_models\tourist.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\_services\order.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\_services\tour.service.ts" />
-  </ItemGroup>
-
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
