@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   }
 
   private loadAllManagers() {
-    this.managerService.getAll().pipe(first()).subscribe(managers => {
+      this.managerService.getAll().pipe(first()).subscribe(managers => {
       this.managers = managers;
     });
   }

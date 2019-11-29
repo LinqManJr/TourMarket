@@ -16,7 +16,7 @@ namespace TourMarket.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Tour> Get()
+        public IEnumerable<Tour> GetTours()
         {            
             return repository.Get();
         }
