@@ -3,14 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using TourMarket.Context;
 using TourMarket.Helpers;
-using TourMarket.Models;
 using TourMarket.Services;
 
 namespace TourMarket
@@ -36,8 +34,7 @@ namespace TourMarket
             services.Configure<AppSettings>(appSettingsSection);
             services.Configure<EmailConfiguration>(mailSettingsSection);
             services.AddSingleton(mailSettingsSection.Get<EmailConfiguration>());
-
-            //var appSettings = appSettingsSection.Get<AppSettings>();
+           
             var key = Encoding.ASCII.GetBytes(appSettingsSection.Get<AppSettings>().Secret);
 
             services.AddMyAuthentication(key);
@@ -52,17 +49,10 @@ namespace TourMarket
 
             services.AddScoped<MarketOfTours>();
             services.AddScoped<TouristsRepository>();
-            //services.AddScoped<MarketRepository<Tour>, MarketOfTours>();
-            //services.AddScoped<MarketRepository<Tourist>, TouristsRepository>();
+            
             
             services.AddScoped<IUserService, ManagerService>();
-            services.AddScoped<OrderRepository>(); //TODO: include Interface
-
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
+            services.AddScoped<OrderRepository>();                 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,7 +71,7 @@ namespace TourMarket
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            
             app.UseAuthentication();
             
             app.UseMvc(routes =>
