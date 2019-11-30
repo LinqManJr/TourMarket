@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace TourMarket.Context
 {
-    interface IRepository<TEntity> where TEntity:class
+    interface IRepository<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> Get();
-        IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
-        TEntity Create(TEntity entity);
-        TEntity FindById(int id);
-        void Remove(TEntity entity);
-        void Update(TEntity entity);
+        Task<IEnumerable<TEntity>> Get();
+        Task<IEnumerable<TEntity>> Get(Func<TEntity, bool> predicate);
+        Task<TEntity> Create(TEntity entity);
+        Task<TEntity> FindById(int id);
+        Task Remove(TEntity entity);
+        Task Update(TEntity entity);
     }
 }

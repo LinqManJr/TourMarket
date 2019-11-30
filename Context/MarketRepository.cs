@@ -16,39 +16,43 @@ namespace TourMarket.Context
             _context = context;
             _dbSet = context.Set<TEntity>();
         }
-        public TEntity Create(TEntity entity)
+        public Task<TEntity> Create(TEntity entity)
         {
-            _dbSet.Add(entity);
-            _context.SaveChanges();
-            return entity;
+            _dbSet.AddAsync(entity);
+            _context.SaveChangesAsync();
+            return Task.FromResult(entity);
         }
 
-        public TEntity FindById(int id)
+        public Task<TEntity> FindById(int id)
         {
-            return _dbSet.Find(id);
+            return _dbSet.FindAsync(id);
         }
 
-        public IEnumerable<TEntity> Get()
+        public async Task<IEnumerable<TEntity>> Get()
         {
-            return _dbSet.AsNoTracking().ToList();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
 
-        public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
+        public async Task<IEnumerable<TEntity>> Get(Func<TEntity, bool> predicate)
         {
-            return _dbSet.AsNoTracking().Where(predicate).ToList();
+            return await _dbSet.AsNoTracking().Where(predicate).AsQueryable().ToListAsync();
         }
 
-        public void Remove(TEntity entity)
+        public Task Remove(TEntity entity)
         {
             _dbSet.Remove(entity);
-            _context.SaveChanges();
+            return _context.SaveChangesAsync();
         }
 
-        public void Update(TEntity entity)
+        public Task Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
+            return _context.SaveChangesAsync();
         }
-        
+
+        Task<TEntity> IRepository<TEntity>.Create(TEntity entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
