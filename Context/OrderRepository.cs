@@ -9,20 +9,21 @@ using TourMarket.Models;
 
 namespace TourMarket.Context
 {
-    public class OrderRepository
+    public class OrderRepository : MarketRepository<Order>
     {
         private readonly MarketContext context;
 
-        public OrderRepository(MarketContext context)
+        /*public OrderRepository(MarketContext context)
         {
             this.context = context;
-        }
+        }*/
+        public OrderRepository(DbContext context) : base(context) { }
 
         public IQueryable<Order> GetOrdersByManagerId(int id)
         {            
            return context.Orders.Where(x => x.ManagerId == id).Include(x => x.Manager).Include(x => x.Tourist);            
         }        
-        
+        /*
         public void AddOrder(Order order)
         {
             context.Orders.Add(order);
@@ -40,7 +41,7 @@ namespace TourMarket.Context
             context.Entry(order).State = EntityState.Modified;
             context.SaveChanges();
         }
-
+        */
         public bool IfExist(Order order)
         {
             return context.Orders.Find(order.Id) != null;            

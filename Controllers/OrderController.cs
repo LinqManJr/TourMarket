@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TourMarket.Context;
 using TourMarket.Dto;
@@ -29,22 +30,22 @@ namespace TourMarket.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult<Order> AddOrder([FromBody]Order order)
+        public async Task<ActionResult<Order>> AddOrder([FromBody]Order order)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
            
-            _repository.AddOrder(order);
+            await _repository.Create(order);
             return order;
         }
 
         [HttpDelete("[action]")]
-        public ActionResult Remove([FromBody]Order order)
+        public async Task<ActionResult> Remove([FromBody]Order order)
         {
             if (!_repository.IfExist(order))
                 return NotFound();
 
-            _repository.DeleteOrder(order);
+            await _repository.Remove(order);
             return NoContent();
         }
 
