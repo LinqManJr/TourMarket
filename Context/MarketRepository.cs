@@ -16,11 +16,11 @@ namespace TourMarket.Context
             _context = context;
             _dbSet = context.Set<TEntity>();
         }
-        public Task<TEntity> Create(TEntity entity)
+        public async Task<TEntity> Create(TEntity entity)
         {
-            _dbSet.AddAsync(entity);
-            _context.SaveChangesAsync();
-            return Task.FromResult(entity);
+            await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return await Task.FromResult(entity);
         }
 
         public Task<TEntity> FindById(int id)
@@ -35,24 +35,19 @@ namespace TourMarket.Context
 
         public async Task<IEnumerable<TEntity>> Get(Func<TEntity, bool> predicate)
         {
-            return await _dbSet.AsNoTracking().Where(predicate).AsQueryable().ToListAsync();
+            return await Task.FromResult(_dbSet.AsNoTracking().Where(predicate));
         }
 
-        public Task Remove(TEntity entity)
+        public async Task Remove(TEntity entity)
         {
             _dbSet.Remove(entity);
-            return _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
-        public Task Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            return _context.SaveChangesAsync();
-        }
-
-        Task<TEntity> IRepository<TEntity>.Create(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
+            await _context.SaveChangesAsync();
+        }        
     }
 }
