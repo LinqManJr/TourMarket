@@ -30,22 +30,22 @@ namespace TourMarket.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<Order>> AddOrder([FromBody]Order order)
+        public ActionResult<Order> AddOrder([FromBody]Order order)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
            
-            await _repository.Create(order);
+            _repository.Create(order);
             return order;
         }
 
         [HttpDelete("[action]")]
-        public async Task<ActionResult> Remove([FromBody]Order order)
+        public ActionResult Remove([FromBody]Order order)
         {
             if (!_repository.IfExist(order))
                 return NotFound();
 
-            await _repository.Remove(order);
+            _repository.Remove(order);
             return NoContent();
         }
 
@@ -55,7 +55,7 @@ namespace TourMarket.Controllers
             if (!_repository.IfExist(order))
                 return NotFound("Order not exist");
 
-            _repository.UpdateAsync(order);
+            _repository.Update(order);
             return order;
         }
     }
