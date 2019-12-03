@@ -47,7 +47,7 @@ namespace TourMarket
             services.AddTransient<DbContext, MarketContext>();
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddScoped<MarketOfTours>();
+            services.AddScoped<TourRepository>();
             services.AddScoped<TouristsRepository>();
             
             

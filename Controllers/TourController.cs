@@ -8,9 +8,9 @@ namespace TourMarket.Controllers
     [Route("api/[controller]")]    
     public class TourController : Controller
     {
-        private readonly MarketOfTours repository;
+        private readonly TourRepository repository;
 
-        public TourController(MarketOfTours repository)
+        public TourController(TourRepository repository)
         {
             this.repository = repository;
         }

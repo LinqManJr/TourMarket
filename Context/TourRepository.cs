@@ -3,9 +3,9 @@ using TourMarket.Models;
 
 namespace TourMarket.Context
 {
-    public class MarketOfTours : MarketRepository<Tour>
+    public class TourRepository : MarketRepository<Tour>
     {
-        public MarketOfTours(DbContext context) : base(context)
+        public TourRepository(DbContext context) : base(context)
         {              
         }
 
