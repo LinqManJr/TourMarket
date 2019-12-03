@@ -7,11 +7,17 @@ namespace TourMarket.Context
 {
     interface IRepository<TEntity> where TEntity : class
     {
-        Task<IEnumerable<TEntity>> Get();
-        Task<IEnumerable<TEntity>> Get(Func<TEntity, bool> predicate);
-        Task<TEntity> Create(TEntity entity);
-        Task<TEntity> FindById(int id);
-        Task Remove(TEntity entity);
-        Task Update(TEntity entity);
+        IEnumerable<TEntity> Get();
+        Task<IEnumerable<TEntity>> GetAsync();
+        IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
+        Task<IEnumerable<TEntity>> GetAsync(Func<TEntity, bool> predicate);
+        TEntity Create(TEntity entity);
+        Task<TEntity> CreateAsync(TEntity entity);
+        TEntity FindById(int id);
+        Task<TEntity> FindByIdAsync(int id);
+        void Remove(TEntity entity);
+        Task RemoveAsync(TEntity entity);
+        void Update(TEntity entity);
+        Task UpdateAsync(TEntity entity);
     }
 }

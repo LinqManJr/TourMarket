@@ -55,7 +55,7 @@ namespace TourMarket.Controllers
             if (!_repository.IfExist(order))
                 return NotFound("Order not exist");
 
-            _repository.Update(order);
+            _repository.UpdateAsync(order);
             return order;
         }
     }

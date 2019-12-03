@@ -16,38 +16,76 @@ namespace TourMarket.Context
             _context = context;
             _dbSet = context.Set<TEntity>();
         }
-        public async Task<TEntity> Create(TEntity entity)
+
+        public TEntity Create(TEntity entity)
+        {
+            _dbSet.Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+
+        public TEntity FindById(int id)
+        {
+            return _dbSet.Find(id);
+        }
+
+        public IEnumerable<TEntity> Get()
+        {
+            return _dbSet.AsNoTracking().ToList();
+        }
+
+        public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
+        {
+            return _dbSet.AsNoTracking().Where(predicate).ToList();
+        }
+
+        public void Remove(TEntity entity)
+        {
+            _dbSet.Remove(entity);
+            _context.SaveChanges();
+        }
+
+        public void Update(TEntity entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        #region Async
+        public async Task<TEntity> CreateAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
             return await Task.FromResult(entity);
-        }
+        }        
 
-        public Task<TEntity> FindById(int id)
+        public async Task<TEntity> FindByIdAsync(int id)
         {
-            return _dbSet.FindAsync(id);
-        }
+            return await _dbSet.FindAsync(id);
+        }               
 
-        public async Task<IEnumerable<TEntity>> Get()
+        public async Task<IEnumerable<TEntity>> GetAsync()
         {
             return await _dbSet.AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> Get(Func<TEntity, bool> predicate)
+        public async Task<IEnumerable<TEntity>> GetAsync(Func<TEntity, bool> predicate)
         {
             return await Task.FromResult(_dbSet.AsNoTracking().Where(predicate));
-        }
+        }        
 
-        public async Task Remove(TEntity entity)
+        public async Task RemoveAsync(TEntity entity)
         {
             _dbSet.Remove(entity);
             await _context.SaveChangesAsync();
-        }
+        }        
 
-        public async Task Update(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-        }        
+        }
+
+        #endregion
     }
 }

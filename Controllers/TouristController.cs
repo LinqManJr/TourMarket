@@ -56,7 +56,7 @@ namespace TourMarket.Controllers
             if (!repository.IfExist(tourist))
                 return NotFound("Tourist not exist");
 
-            repository.Update(tourist);
+            repository.UpdateAsync(tourist);
             return tourist;
         }
 
