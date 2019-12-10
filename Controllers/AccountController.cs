@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -12,20 +13,36 @@ using TourMarket.Services;
 
 namespace TourMarket.Controllers
 {
-    [Route("api/[controller]")]    
+    [Route("api/[controller]")]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class AccountController : Controller
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         private readonly IUserService _userService;
         private readonly AppSettings _appSettings;
 
-        public AccountController(IUserService userService,IOptions<AppSettings> appSettings)
+        /// <summary>
+        /// Constructor of AccountController
+        /// </summary>
+        /// <param name="userService">IUserService for manage users</param>
+        /// <param name="appSettings">IOptions AppSettings</param>
+        public AccountController(IUserService userService, IOptions<AppSettings> appSettings)
         {
             _userService = userService;
             _appSettings = appSettings.Value;
         }
 
+        /// <summary>
+        /// Login by manager 
+        /// </summary>
+        /// <param name="managerDto">ManagerDto</param>
+        /// <returns>ActionResult with data as : id, login, name, token</returns>
+        /// <response code="200">Returns Ok</response>
+        /// <response code="400">If the item is null</response>
         [AllowAnonymous]
-        [HttpPost("login")]
+        [HttpPost("Login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Login([FromBody]ManagerDto managerDto)
         {
             var manager = _userService.Authenticate(managerDto.Login, managerDto.Password);
@@ -49,15 +66,24 @@ namespace TourMarket.Controllers
                         
             return Ok(new
             {
-                Id = manager.Id,
-                Login = manager.Login,
-                Name = manager.Name,
+                manager.Id,
+                manager.Login,
+                manager.Name,
                 Token = tokenString
             });
         }
 
+        /// <summary>
+        /// Register manager
+        /// </summary>
+        /// <param name="managerDto">ManagerDto</param>
+        /// <returns>StatusCode: Ok or BadRequest</returns>
+        /// <response code="200">Returns Ok</response>
+        /// <response code="400">If throw exception on CreateManager</response>
         [AllowAnonymous]
-        [HttpPost("register")]
+        [HttpPost("Register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Register([FromBody]ManagerDto managerDto)
         {            
             var user = managerDto.ToManager();

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TourMarket</name>
+    </assembly>
+    <members>
+        <member name="M:TourMarket.Controllers.AccountController.#ctor(TourMarket.Services.IUserService,Microsoft.Extensions.Options.IOptions{TourMarket.Helpers.AppSettings})">
+            <summary>
+            Constructor of AccountController
+            </summary>
+            <param name="userService">IUserService for manage users</param>
+            <param name="appSettings">IOptions AppSettings</param>
+        </member>
+        <member name="M:TourMarket.Controllers.AccountController.Login(TourMarket.Dto.ManagerDto)">
+            <summary>
+            Login by manager 
+            </summary>
+            <param name="managerDto">ManagerDto</param>
+            <returns>ActionResult with data as : id, login, name, token</returns>
+            <response code="200">Returns Ok</response>
+            <response code="400">If the item is null</response>
+        </member>
+        <member name="M:TourMarket.Controllers.AccountController.Register(TourMarket.Dto.ManagerDto)">
+            <summary>
+            Register manager
+            </summary>
+            <param name="managerDto">ManagerDto</param>
+            <returns>StatusCode: Ok or BadRequest</returns>
+            <response code="200">Returns Ok</response>
+            <response code="400">If throw exception on CreateManager</response>
+        </member>
+    </members>
+</doc>
