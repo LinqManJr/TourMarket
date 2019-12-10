@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using TourMarket.Context;
 using TourMarket.Helpers;
@@ -36,6 +39,8 @@ namespace TourMarket
                     Title = "TourMarket API",
                     Description = "ASP.NET Core Web API for TourMarket"
                 });
+                var filePath = $"{ Assembly.GetExecutingAssembly().GetName().Name }.xml";
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, filePath));
             });
 
             services.AddDbContext<MarketContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketDb")));
@@ -106,6 +111,7 @@ namespace TourMarket
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "TourMarket API V1");
+                c.RoutePrefix = string.Empty;
             });
         }
     }
