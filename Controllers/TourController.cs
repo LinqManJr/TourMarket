@@ -109,7 +109,6 @@ namespace TourMarket.Controllers
         /// <response code="204">If Remove is true</response>
         /// <response code="404">If tour is null</response>
         [HttpDelete("[action]")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public ActionResult Remove(Tour tour)
