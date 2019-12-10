@@ -12,8 +12,12 @@ namespace TourMarket.Context
         public IQueryable<Order> GetOrdersByManagerId(int id)
         {            
            return _dbSet.Where(x => x.ManagerId == id).Include(x => x.Manager).Include(x => x.Tourist);            
-        }        
-        
+        }
+        public IQueryable<Order> GetOrders()
+        {
+            return _dbSet.Include(x => x.Manager).Include(x => x.Tourist);
+        }
+
         public bool IfExist(Order order)
         {
             return _dbSet.Find(order.Id) != null;            

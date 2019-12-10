@@ -26,25 +26,7 @@ namespace TourMarket.Helpers
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(x =>
-            {
-                /*x.Events = new JwtBearerEvents
-                {
-                    OnTokenValidated = context =>
-                    {                        
-                        var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();                                             
-                        
-                        var manager = context.Principal.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
-                        if (manager == null)
-                            context.Fail("Unauthorized");
-
-                        var user = userService.GetById(int.Parse(manager.Value));
-                        if (user == null)
-                        {
-                            context.Fail("Unauthorized");
-                        }
-                        return Task.CompletedTask;
-                    }
-                };*/
+            {                
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters

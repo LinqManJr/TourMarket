@@ -23,12 +23,23 @@ namespace TourMarket.Controllers
         }
 
         [HttpGet("[action]")]        
-        public ActionResult<IQueryable<Order>> GetOrders()
+        public ActionResult<IQueryable<Order>> GetOrdersByManager()
         {
             var managerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             var orders = _repository.GetOrdersByManagerId(managerId).ToList();
             if (orders.Count == 0)
+                return NotFound("You not have orders");
+
+            return Ok(orders);
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult<IQueryable<Order>> GetOrders()
+        {
+            var orders = _repository.GetOrders();
+
+            if (orders.Count() == 0)
                 return NotFound("You not have orders");
 
             return Ok(orders);
