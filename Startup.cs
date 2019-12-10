@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 using System.Text;
 using TourMarket.Context;
 using TourMarket.Helpers;
@@ -26,6 +27,17 @@ namespace TourMarket
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "TourMarket API",
+                    Description = "ASP.NET Core Web API for TourMarket"
+                });
+            });
+
             services.AddDbContext<MarketContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketDb")));
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -88,6 +100,12 @@ namespace TourMarket
                 routes.MapRoute(
                     name: "DefaultAPI",
                     template: "api/{controller}/{action}/{id?}");
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TourMarket API V1");
             });
         }
     }
