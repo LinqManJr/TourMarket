@@ -27,7 +27,7 @@ namespace TourMarket.Helpers
             })
             .AddJwtBearer(x =>
             {
-                x.Events = new JwtBearerEvents
+                /*x.Events = new JwtBearerEvents
                 {
                     OnTokenValidated = context =>
                     {                        
@@ -43,13 +43,8 @@ namespace TourMarket.Helpers
                             context.Fail("Unauthorized");
                         }
                         return Task.CompletedTask;
-                    },
-                    OnAuthenticationFailed = context =>
-                    {
-                        context.Fail("Unauthorized");
-                        return Task.CompletedTask;
                     }
-                };
+                };*/
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters

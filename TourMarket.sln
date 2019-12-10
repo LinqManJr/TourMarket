@@ -5,10 +5,6 @@ VisualStudioVersion = 16.0.29505.145
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourMarket", "TourMarket.csproj", "{21CBFB39-E839-4584-BC07-91E6A70DD583}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourMarket.Test", "..\TourMarket.Test\TourMarket.Test.csproj", "{ECB135E8-E6D2-441C-B70B-F59ED9492145}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TourMarket.Tests", "TourMarket.Tests", "{130B48B0-AFFD-4593-A827-2E1438A11B0B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,16 +15,9 @@ Global
 		{21CBFB39-E839-4584-BC07-91E6A70DD583}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21CBFB39-E839-4584-BC07-91E6A70DD583}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21CBFB39-E839-4584-BC07-91E6A70DD583}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECB135E8-E6D2-441C-B70B-F59ED9492145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECB135E8-E6D2-441C-B70B-F59ED9492145}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECB135E8-E6D2-441C-B70B-F59ED9492145}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECB135E8-E6D2-441C-B70B-F59ED9492145}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{ECB135E8-E6D2-441C-B70B-F59ED9492145} = {130B48B0-AFFD-4593-A827-2E1438A11B0B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A4BC07E-4665-4193-8D65-EDF16A4BB5A0}

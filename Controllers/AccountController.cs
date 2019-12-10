@@ -12,8 +12,7 @@ using TourMarket.Services;
 
 namespace TourMarket.Controllers
 {
-    [Route("api/[controller]")]
-    [Authorize]
+    [Route("api/[controller]")]    
     public class AccountController : Controller
     {
         private readonly IUserService _userService;

@@ -44,12 +44,12 @@ namespace TourMarket
                 defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
                 options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
             });
+
             services.AddTransient<DbContext, MarketContext>();
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddScoped<TourRepository>();
-            services.AddScoped<TouristsRepository>();
-            
+            services.AddScoped<TouristsRepository>();            
             
             services.AddScoped<IUserService, ManagerService>();
             services.AddScoped<OrderRepository>();                 
@@ -70,10 +70,15 @@ namespace TourMarket
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles();            
+           
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
             
             app.UseAuthentication();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -82,13 +87,8 @@ namespace TourMarket
 
                 routes.MapRoute(
                     name: "DefaultAPI",
-                    template:"api/{controller}/{action}/{id?}");
+                    template: "api/{controller}/{action}/{id?}");
             });
-
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());            
         }
     }
 }

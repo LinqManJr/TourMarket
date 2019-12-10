@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TourMarket.Context;
 using TourMarket.Dto;
@@ -8,8 +11,8 @@ using TourMarket.Models;
 
 namespace TourMarket.Controllers
 {
-    [Route("api/[controller]")]    
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Route("api/[controller]")]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly OrderRepository _repository;
@@ -19,10 +22,12 @@ namespace TourMarket.Controllers
             _repository = repository;
         }
 
-        [HttpGet("[action]/{id}")]        
-        public ActionResult<IQueryable<Order>> GetOrders(int id = 1)
+        [HttpGet("[action]")]        
+        public ActionResult<IQueryable<Order>> GetOrders()
         {
-            var orders = _repository.GetOrdersByManagerId(id).ToList();
+            var managerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var orders = _repository.GetOrdersByManagerId(managerId).ToList();
             if (orders.Count == 0)
                 return NotFound("You not have orders");
 
