@@ -17,8 +17,11 @@ using TourMarket.Services;
 
 namespace TourMarket
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Startup
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
